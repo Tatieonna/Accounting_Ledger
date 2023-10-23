@@ -13,36 +13,48 @@ public class Main {
         System.out.println("X): Exit application");
 
 
+            String userInput = scanner.nextLine();
+            switch (userInput) {
+                case "D":
+                    deposit();
+                    break;
+                case "P":
+                    payment();
+                    break;
+                case "L":
+                    //display ledger screen
+                    break;
+                case "X":
+                    System.out.println("Thank you!");
 
-        String userInput = scanner.nextLine();
-        switch (userInput){
-            case "D":
-                System.out.println("Enter deposit information");
-                break;
-            case "P":
-                System.out.println("Enter debit information");
-                break;
-            case "L":
-                //display ledger screen
-                break;
-            case "X":
-                System.out.println("Thank you!");
-
-
+                default:
+                    System.out.println("Please pick from our menu items! ");
+            }
         }
-
-        }
-       public static String deposit (){
-        return
+       public static void deposit (){
+           Scanner scanner = new Scanner(System.in);
+           System.out.println("Enter description of deposit: ");
+           scanner.nextLine();
+           System.out.println("Enter vendor name: ");
+           scanner.nextLine();
+           System.out.println("Enter amount: ");
+           scanner.nextLine();
        }
-       public static String payment(){
-        return
+       public static void payment(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter description of payment: ");
+        scanner.nextLine();
+        System.out.println("Enter vendor name: ");
+        scanner.nextLine();
+        System.out.println("Enter amount: ");
+        scanner.nextLine();
+
        }
         public static String ledger(){
-        return
+        return "";
         }
         public static String exit(){
-        return
+        return "";
         }
 
 }
