@@ -1,5 +1,7 @@
 package org.example;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 public class Main {
@@ -34,21 +36,37 @@ public class Main {
        public static void deposit (){
            Scanner scanner = new Scanner(System.in);
            System.out.println("Enter description of deposit: ");
-           scanner.nextLine();
+           String description = scanner.nextLine();
            System.out.println("Enter vendor name: ");
-           scanner.nextLine();
+           String vendor = scanner.nextLine();
            System.out.println("Enter amount: ");
-           scanner.nextLine();
+           double amount = scanner.nextDouble();
+           LocalDate now = LocalDate.now();
+           LocalTime nowTime = LocalTime.now();
+           /*System.out.println(now);
+           System.out.println(nowTime);
+           System.out.println(description);
+           System.out.println(vendor);
+           System.out.println(amount);*/
+           System.out.println("deposit information: "+ now +"|" + nowTime + "|" + description + "|" + vendor + "|" + amount);
+
        }
        public static void payment(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter description of payment: ");
-        scanner.nextLine();
+        String description = scanner.nextLine();
         System.out.println("Enter vendor name: ");
-        scanner.nextLine();
+        String vendor = scanner.nextLine();
         System.out.println("Enter amount: ");
-        scanner.nextLine();
-
+        double amount = scanner.nextDouble();
+           LocalDate now = LocalDate.now();
+           LocalTime nowTime = LocalTime.now();
+           /*System.out.println(now);
+           System.out.println(nowTime);
+           System.out.println(description);
+           System.out.println(vendor);
+           System.out.println(amount);*/
+           System.out.println("deposit information: "+ now +"|" + nowTime + "|" + description + "|" + vendor + "|" + amount);
        }
         public static String ledger(){
         return "";
