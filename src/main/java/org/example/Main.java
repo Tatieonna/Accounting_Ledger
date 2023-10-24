@@ -26,7 +26,7 @@ public class Main {
                     payment();
                     break;
                 case "L":
-                    //display ledger screen
+                    ledger();
                     break;
                 case "X":
                     System.out.println("Thank you!");
@@ -78,6 +78,14 @@ public class Main {
     }
     }
         public static String ledger(){
+            Scanner scanner = new Scanner(System.in);
+
+            System.out.println("Your Ledger ");
+            System.out.println("A): Display all entries ");
+            System.out.println("D): Display deposits");
+            System.out.println("P): Display payments");
+            System.out.println("R): Reports");
+
         return "";
         }
         public static String exit(){
