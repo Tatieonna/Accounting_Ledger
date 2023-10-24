@@ -86,6 +86,22 @@ public class Main {
             System.out.println("P): Display payments");
             System.out.println("R): Reports");
 
+            String userInput = scanner.nextLine();
+            switch(userInput){
+                case "A":
+                    // all entries will be printed to screen
+                    break;
+                case "D":
+                    // all deposits will be printed to screen
+                    break;
+                case "P":
+                    // all payments will be printed to screen
+                    break;
+                case "R":
+                    //new screen "reports"
+
+            }
+
         return "";
         }
         public static String exit(){
