@@ -1,5 +1,7 @@
 package org.example;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
@@ -34,6 +36,7 @@ public class Main {
             }
         }
        public static void deposit (){
+        try{
            Scanner scanner = new Scanner(System.in);
            System.out.println("Enter description of deposit: ");
            String description = scanner.nextLine();
@@ -43,15 +46,19 @@ public class Main {
            double amount = scanner.nextDouble();
            LocalDate now = LocalDate.now();
            LocalTime nowTime = LocalTime.now();
-           /*System.out.println(now);
-           System.out.println(nowTime);
-           System.out.println(description);
-           System.out.println(vendor);
-           System.out.println(amount);*/
            System.out.println("deposit information: "+ now +"|" + nowTime + "|" + description + "|" + vendor + "|" + amount);
+
+               FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true);
+               fileWriter.write(now + "|" + nowTime +"|" + description + "|" + vendor + "|" + amount + "\n");
+               fileWriter.close();
+           } catch(IOException exception){
+
+
+           }
 
        }
        public static void payment(){
+           try{
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter description of payment: ");
         String description = scanner.nextLine();
@@ -61,13 +68,15 @@ public class Main {
         double amount = scanner.nextDouble();
            LocalDate now = LocalDate.now();
            LocalTime nowTime = LocalTime.now();
-           /*System.out.println(now);
-           System.out.println(nowTime);
-           System.out.println(description);
-           System.out.println(vendor);
-           System.out.println(amount);*/
            System.out.println("deposit information: "+ now +"|" + nowTime + "|" + description + "|" + vendor + "|" + amount);
-       }
+           FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true);
+           fileWriter.write(now + "|" + nowTime +"|" + description + "|" + vendor + "|" + amount + "\n");
+           fileWriter.close();
+       } catch(IOException exception){
+
+
+    }
+    }
         public static String ledger(){
         return "";
         }
