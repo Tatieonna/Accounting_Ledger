@@ -7,26 +7,32 @@ import java.time.LocalTime;
 import java.util.Scanner;
 
 public class Main {
+    //I made this public static outside of main because I'm using it in all methods and not just in main.
+    public static Ledger ledger= new Ledger();
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        ledger.readFromCSV();
+        while(true) {
 
-        System.out.println("Home screen: ");
-        System.out.println("D): Make a deposit");
-        System.out.println("P): Make a payment");
-        System.out.println("L): See ledger");
-        System.out.println("X): Exit application");
+
+            Scanner scanner = new Scanner(System.in);
+
+            System.out.println("Home screen: ");
+            System.out.println("D): Make a deposit");
+            System.out.println("P): Make a payment");
+            System.out.println("L): See ledger");
+            System.out.println("X): Exit application");
 
 
             String userInput = scanner.nextLine();
-            switch (userInput) {
+            switch (userInput.toUpperCase()) {
                 case "D":
-                    deposit();
+                    depositMenu();
                     break;
                 case "P":
-                    payment();
+                    paymentMenu();
                     break;
                 case "L":
-                    ledger();
+                    ledgerMenu();
                     break;
                 case "X":
                     System.out.println("Thank you!");
@@ -35,7 +41,8 @@ public class Main {
                     System.out.println("Please pick from our menu items! ");
             }
         }
-       public static void deposit (){
+        }
+       public static void depositMenu(){
         try{
            Scanner scanner = new Scanner(System.in);
            System.out.println("Enter description of deposit: ");
@@ -44,12 +51,17 @@ public class Main {
            String vendor = scanner.nextLine();
            System.out.println("Enter amount: ");
            double amount = scanner.nextDouble();
-           LocalDate now = LocalDate.now();
+           LocalDate today = LocalDate.now();
            LocalTime nowTime = LocalTime.now();
-           System.out.println("deposit information: "+ now +"|" + nowTime + "|" + description + "|" + vendor + "|" + amount);
+
+           Transaction deposit = new Transaction(today.toString(),nowTime.toString(),description,vendor,amount);
+           ledger.addTransaction(deposit);
+
+
+           System.out.println("deposit information: "+ today +"|" + nowTime + "|" + description + "|" + vendor + "|" + amount);
 
                FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true);
-               fileWriter.write(now + "|" + nowTime +"|" + description + "|" + vendor + "|" + amount + "\n");
+               fileWriter.write(today + "|" + nowTime +"|" + description + "|" + vendor + "|" + amount + "\n");
                fileWriter.close();
            } catch(IOException exception){
 
@@ -57,7 +69,7 @@ public class Main {
            }
 
        }
-       public static void payment(){
+       public static void paymentMenu(){
            try{
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter description of payment: ");
@@ -66,18 +78,24 @@ public class Main {
         String vendor = scanner.nextLine();
         System.out.println("Enter amount: ");
         double amount = scanner.nextDouble();
-           LocalDate now = LocalDate.now();
+        amount= -amount;
+
+           LocalDate today = LocalDate.now();
            LocalTime nowTime = LocalTime.now();
-           System.out.println("deposit information: "+ now +"|" + nowTime + "|" + description + "|" + vendor + "|" + amount);
+
+               Transaction payment = new Transaction(today.toString(),nowTime.toString(),description,vendor,amount);
+               ledger.addTransaction(payment);
+
+           System.out.println("deposit information: "+ today +"|" + nowTime + "|" + description + "|" + vendor + "|" + amount);
            FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv", true);
-           fileWriter.write(now + "|" + nowTime +"|" + description + "|" + vendor + "|" + amount + "\n");
+           fileWriter.write(today + "|" + nowTime +"|" + description + "|" + vendor + "|" + amount + "\n");
            fileWriter.close();
        } catch(IOException exception){
 
 
     }
     }
-        public static String ledger(){
+        public static String ledgerMenu(){
             Scanner scanner = new Scanner(System.in);
 
             System.out.println("Your Ledger ");
@@ -87,15 +105,15 @@ public class Main {
             System.out.println("R): Reports");
 
             String userInput = scanner.nextLine();
-            switch(userInput){
+            switch(userInput.toUpperCase()){
                 case "A":
-                    // all entries will be printed to screen
+                    ledger.displayAllTransactions();
                     break;
                 case "D":
-                    // all deposits will be printed to screen
+                    ledger.displayAllDeposits();
                     break;
                 case "P":
-                    // all payments will be printed to screen
+                    ledger.displayAllPayments();
                     break;
                 case "R":
                     //new screen "reports"

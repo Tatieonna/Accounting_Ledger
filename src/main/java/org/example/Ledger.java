@@ -1,47 +1,64 @@
 package org.example;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Ledger {
-    public String allEntries;
-    public String deposits;
-    public String payments;
-    public String reports;
 
-    public Ledger(String allEntries, String deposits, String payments, String reports) {
-        this.allEntries = allEntries;
-        this.deposits = deposits;
-        this.payments = payments;
-        this.reports = reports;
+    private ArrayList<Transaction> transactions;
+    public Ledger(){
+        this.transactions= new ArrayList<Transaction>();
+
     }
 
-    public String getAllEntries() {
-        return allEntries;
+    public void addTransaction (Transaction transaction) {
+        transactions.add(transaction);
+    }
+    public void readFromCSV() {
+        try {
+            FileInputStream fis = new FileInputStream("src/main/resources/transactions.csv");
+            Scanner scanner = new Scanner(fis);
+            scanner.nextLine();
+            while (scanner.hasNextLine()){
+                String input = scanner.nextLine();
+                String[] line = input.split("\\|");
+                String date = line[0];
+                String time = line [1];
+                String description= line [2];
+                String vendor = line [3];
+                Double amount = Double.parseDouble(line[4]);
+                Transaction transaction = new Transaction(date, time, description, vendor, amount);
+                transactions.add(transaction);
+                System.out.println(transaction);
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println("Uh oh - something went wrong! :( ");
+
+        }
     }
 
-    public void setAllEntries(String allEntries) {
-        this.allEntries = allEntries;
+    public void displayAllTransactions(){
+        for (Transaction transaction: transactions){
+            System.out.println(transaction);
+        }
+    }
+    public void displayAllDeposits() {
+        for (Transaction transaction : transactions) {
+            if (transaction.getAmount() > 0 ){
+                System.out.println(transaction);
+
+        }
     }
 
-    public String getDeposits() {
-        return deposits;
+    }
+    public void displayAllPayments (){
+        for (Transaction transaction: transactions){
+            if (transaction.getAmount()< 0){
+                System.out.println(transaction);
+            }
+        }
     }
 
-    public void setDeposits(String deposits) {
-        this.deposits = deposits;
     }
-
-    public String getPayments() {
-        return payments;
-    }
-
-    public void setPayments(String payments) {
-        this.payments = payments;
-    }
-
-    public String getReports() {
-        return reports;
-    }
-
-    public void setReports(String reports) {
-        this.reports = reports;
-    }
-}

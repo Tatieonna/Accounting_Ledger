@@ -54,5 +54,9 @@ public class Transaction {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
+    public String toString(){
+        return date + " " +  time + " " + description + " " + vendor + " " + amount;
+    }
 }
 
